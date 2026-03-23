@@ -3,12 +3,10 @@ Flask server for the EMEA Fintech News Aggregator.
 """
 
 import logging
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from flask import Flask, jsonify, send_from_directory
 
 from fetcher import fetch_articles
-from summariser import summarise_article
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -24,8 +22,7 @@ def index():
 @app.post("/api/refresh")
 def refresh():
     """
-    Fetch latest fintech articles, summarise each with Claude in parallel,
-    and return the structured results as JSON.
+    Fetch latest fintech articles from RSS feeds and return structured results as JSON.
     """
     try:
         articles = fetch_articles()
@@ -36,19 +33,20 @@ def refresh():
     if not articles:
         return jsonify({"results": [], "message": "No articles found."})
 
-    results = []
-    with ThreadPoolExecutor(max_workers=5) as pool:
-        futures = {pool.submit(summarise_article, a): a for a in articles}
-        for future in as_completed(futures):
-            try:
-                summary = future.result()
-                if summary:
-                    results.append(summary)
-            except Exception as exc:
-                logger.warning("Summarise task failed: %s", exc)
-
-    # Sort by published date descending
-    results.sort(key=lambda r: r.get("published", ""), reverse=True)
+    results = [
+        {
+            "company_name": a["title"],
+            "story_summary": a.get("summary") or a.get("article_text", "")[:500],
+            "location": None,
+            "sub_vertical": "other",
+            "investors": [],
+            "key_metrics": None,
+            "url": a["url"],
+            "source": a["source"],
+            "published": a["published"].isoformat(),
+        }
+        for a in articles
+    ]
 
     return jsonify({"results": results})
 

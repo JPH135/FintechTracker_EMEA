@@ -156,7 +156,7 @@ async function refreshNews() {
   }
 }
 
-// Initial page load: show prompt
+// Initial page load: auto-fetch past week's articles
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('empty-state').classList.remove('hidden');
+  refreshNews();
 });

@@ -4,13 +4,13 @@ Returns the N most recent articles across all feeds.
 """
 
 import logging
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 import feedparser
 import httpx
 
-from config import FEEDS, MAX_ARTICLES
+from config import FEEDS, LOOKBACK_DAYS, MAX_ARTICLES
 
 logger = logging.getLogger(__name__)
 
@@ -82,8 +82,10 @@ def fetch_articles() -> list[dict]:
                 seen_urls.add(article["url"])
                 all_articles.append(article)
 
-    # Sort newest first
+    # Sort newest first, then filter to past LOOKBACK_DAYS days
     all_articles.sort(key=lambda a: a["published"], reverse=True)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=LOOKBACK_DAYS)
+    all_articles = [a for a in all_articles if a["published"] >= cutoff]
     top = all_articles[:MAX_ARTICLES]
 
     # Try to enrich with full text (best-effort)

@@ -1,11 +1,5 @@
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-
-MAX_ARTICLES = 5
+MAX_ARTICLES = 20
+LOOKBACK_DAYS = 7
 
 FEEDS = [
     {
