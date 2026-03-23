@@ -155,7 +155,6 @@ async function refreshNews() {
     setLoading(false);
   }
 }
-
 // Initial page load: auto-fetch past week's articles
 document.addEventListener('DOMContentLoaded', () => {
   refreshNews();
