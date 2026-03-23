@@ -1,0 +1,320 @@
+/* ── Reset & base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0d1117;
+  --surface:    #161b22;
+  --surface2:   #21262d;
+  --border:     #30363d;
+  --text:       #e6edf3;
+  --muted:      #8b949e;
+  --accent:     #58a6ff;
+  --accent2:    #3fb950;
+
+  /* Sub-vertical colours */
+  --payments:        #58a6ff;
+  --lending:         #3fb950;
+  --wealthtech:      #d2a8ff;
+  --regtech:         #ffa657;
+  --insurtech:       #79c0ff;
+  --crypto:          #f78166;
+  --banking:         #56d364;
+  --embedded-finance:#a5d6ff;
+  --infrastructure:  #ff7b72;
+  --other:           #8b949e;
+}
+
+html { font-size: 15px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Header ───────────────────────────────────────────────────── */
+header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: var(--accent);
+  line-height: 1;
+  user-select: none;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.tagline {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.last-refreshed {
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ── Refresh button ───────────────────────────────────────────── */
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--accent);
+  color: #0d1117;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  white-space: nowrap;
+}
+.refresh-btn:hover { opacity: 0.88; }
+.refresh-btn:active { transform: scale(0.97); }
+.refresh-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.refresh-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.6s ease;
+}
+.refresh-btn.spinning .refresh-icon {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Main ─────────────────────────────────────────────────────── */
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 3rem;
+}
+
+/* ── Loading ──────────────────────────────────────────────────── */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 4rem 0;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── Empty state ──────────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 5rem 0;
+  color: var(--muted);
+  text-align: center;
+}
+.empty-icon { font-size: 3rem; }
+
+/* ── News grid ────────────────────────────────────────────────── */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: border-color 0.15s;
+}
+.card:hover { border-color: var(--accent); }
+
+/* Card top row */
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.company-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.vertical-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* Location row */
+.location-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.location-icon { flex-shrink: 0; }
+
+/* Investors row */
+.investors-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.investors-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.2rem;
+  flex-shrink: 0;
+}
+
+.investor-pill {
+  font-size: 0.75rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  color: var(--text);
+}
+
+.no-investors {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Metrics block */
+.metrics-block {
+  background: var(--surface2);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 6px 6px 0;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.metrics-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent2);
+  margin-bottom: 0.25rem;
+}
+
+/* Story */
+.story-text {
+  font-size: 0.85rem;
+  color: #c9d1d9;
+  line-height: 1.65;
+}
+
+/* Card footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.source-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.read-more {
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+.read-more:hover { text-decoration: underline; }
+
+/* ── Sub-vertical colour utility ──────────────────────────────── */
+.vt-payments         { background: rgba(88,166,255,0.15);  color: var(--payments); }
+.vt-lending          { background: rgba(63,185,80,0.15);   color: var(--lending); }
+.vt-wealthtech       { background: rgba(210,168,255,0.15); color: var(--wealthtech); }
+.vt-regtech          { background: rgba(255,166,87,0.15);  color: var(--regtech); }
+.vt-insurtech        { background: rgba(121,192,255,0.15); color: var(--insurtech); }
+.vt-crypto           { background: rgba(247,129,102,0.15); color: var(--crypto); }
+.vt-banking          { background: rgba(86,211,100,0.15);  color: var(--banking); }
+.vt-embedded-finance { background: rgba(165,214,255,0.15); color: var(--embedded-finance); }
+.vt-infrastructure   { background: rgba(255,123,114,0.15); color: var(--infrastructure); }
+.vt-other            { background: rgba(139,148,158,0.15); color: var(--other); }
+
+/* ── Helpers ──────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+@media (max-width: 600px) {
+  .tagline { display: none; }
+  .news-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 1.1rem; }
+}

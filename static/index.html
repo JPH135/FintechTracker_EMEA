@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMEA Fintech News</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <span class="logo">⬡</span>
+        <div>
+          <h1>EMEA Fintech News</h1>
+          <p class="tagline">AI-structured intelligence from the European, Middle East &amp; Africa fintech ecosystem</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <span id="last-refreshed" class="last-refreshed"></span>
+        <button id="refresh-btn" class="refresh-btn" onclick="refreshNews()">
+          <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Loading state -->
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Fetching &amp; analysing latest fintech news…</p>
+    </div>
+
+    <!-- Empty / error state -->
+    <div id="empty-state" class="empty-state hidden">
+      <div class="empty-icon">📡</div>
+      <p id="empty-message">Click <strong>Refresh</strong> to load the latest EMEA fintech news.</p>
+    </div>
+
+    <!-- News grid -->
+    <div id="news-grid" class="news-grid hidden"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
