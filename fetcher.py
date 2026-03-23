@@ -58,7 +58,6 @@ def _fetch_full_text(url: str) -> str:
         resp = httpx.get(url, timeout=8, follow_redirects=True,
                          headers={"User-Agent": "FintechTracker/1.0"})
         resp.raise_for_status()
-        # Very lightweight extraction: strip tags, return first 3000 chars
         import re
         text = re.sub(r"<[^>]+>", " ", resp.text)
         text = re.sub(r"\s+", " ", text).strip()
@@ -71,7 +70,6 @@ def fetch_articles() -> list[dict]:
     """
     Fetch articles from all configured RSS feeds.
     Deduplicates by URL, sorts newest-first, returns top MAX_ARTICLES.
-    Each article dict includes an 'article_text' field for Claude.
     """
     seen_urls: set[str] = set()
     all_articles: list[dict] = []
